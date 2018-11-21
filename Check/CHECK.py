@@ -8,12 +8,18 @@ def calculate_max_lenght(PRODUCTS):
 
 def print_check(max_lenght, PRODUCTS):
     line_stroke = "_" * (max_lenght - 1)
-    print(f" {line_stroke}")
-    print("|{}|".format(" " * (max_lenght - 1)))
+    strokes_on_check = []
+    strokes_on_check.append(f" {line_stroke}\r")
+    strokes_on_check.append("|{}|\r".format(" " * (max_lenght - 1)))
     for product in PRODUCTS:
-        print("|{:16} {:7d} руб.|".format(product[0], product[1]))
-    print("|{}|".format(line_stroke))
+        strokes_on_check.append("|{:16} {:7d} руб.|\r".format(product[0], product[1]))
+    strokes_on_check.append("|{}|\r".format(line_stroke))
+    return strokes_on_check
 
+
+def send_to_printer(strokes_on_check):
+    for stroke in strokes_on_check:
+        print(stroke)
 
 def main():
     PRODUCTS = [
@@ -23,8 +29,8 @@ def main():
         ['красная рыба', 450],
     ]
     max_lenght = calculate_max_lenght(PRODUCTS)
-    print_check(max_lenght, PRODUCTS)
-
+    strokes_on_check = print_check(max_lenght, PRODUCTS)
+    send_to_printer(strokes_on_check)
 
 if __name__ == "__main__":
     main()
